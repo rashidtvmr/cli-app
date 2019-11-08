@@ -15,19 +15,19 @@ program
 
 program
     .command('login')
-    .alias('-l')
+    .alias('l')
     .description("Log into this app")
     .action(()=>{ userController.login() });
 
 program
     .command('signup')
-    .alias('-r')
+    .alias('r')
     .description("Create a new account")
     .action(()=>{ userController.signup()});
 
 program
     .command('logout')
-    .alias('-ur')
+    .alias('lo')
     .description("Delete Key File")
     .action(()=>{ userController.logout()});
 program
