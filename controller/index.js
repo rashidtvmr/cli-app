@@ -2,6 +2,8 @@
 const axios=require('../config/axios');
 const fs=require('fs');
 const {prompt}=require('inquirer');
+const ora=require('ora')
+const chalk=require('chalk')
 
 let userController={};
 let commentController={};
@@ -11,7 +13,8 @@ let {login,signup,comment}=require('./prompt');
 
 userController.login=()=>{
     if(fs.existsSync('./key.json')){
-        console.log("You're already loggedin!!!");
+        ora().succeed("You're already logged in!!!");
+        // console.log("You're already loggedin!!!");
     }else{
         prompt(login).then(answer=>{
             axios.post('/user/login',{
@@ -19,7 +22,7 @@ userController.login=()=>{
                 password:answer.password
             }).then(result=>{
                 fs.writeFileSync('key.json',JSON.stringify({api_key:result.data.token}));
-                console.log("Logged in successfully");
+                ora().succeed("Login successful!!!");
                 process.exit(1);
             }).catch(err=>{
                 console.log(err.response.data.msg);
@@ -31,7 +34,7 @@ userController.login=()=>{
 
 userController.signup=()=>{
     if(fs.existsSync('./key.json')){
-        console.log("You're already loggedin");
+        ora().succeed("You're already loggedin!!!");
     }else{
         prompt(signup).then(answer=>{
             axios.post('/user',{
@@ -40,7 +43,7 @@ userController.signup=()=>{
                 password:answer.password,
             }).then(result=>{
                 fs.writeFileSync('key.json',JSON.stringify({api_key:result.data.token}));
-                console.log("You logged in!!!");
+                ora().succeed("Login Successful!!!");;
                 process.exit(1);
             }).catch(err=>{
                 console.log(err.response.data.msg);
@@ -53,7 +56,7 @@ userController.signup=()=>{
 
 userController.logout=()=>{
     if(!fs.existsSync('./key.json')){
-        console.log("You must login to logout");
+       ora().warn("You must login to logout");
     }else{
         if(!fs.unlinkSync('./key.json')){
             console.log("Logout successfully!!!")
