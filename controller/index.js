@@ -112,7 +112,7 @@ function showLogoutMessage(){
             return;
         }
         console.log(data)
-        console.log("\t --------- Loggedout successfully ---------");        
+        console.log("\t --------- Logged out successfully ---------");        
         process.exit(1);
     });
 }
