@@ -1,18 +1,9 @@
-const ora = require('ora');
- 
-const spinner = ora('Loading unicorns').start();
- 
-setTimeout(() => {
-    spinner.color = 'yellow';
-    spinner.text = 'Loading rainbows';
-    spinner.spinner={
-        interval: 80, // Optional
-        frames: ['-', '+', '/','*']
+const figlet=require('figlet');
+figlet('Inner Peace', function(err, data) {
+    if (err) {
+        console.log('Something went wrong...');
+        console.dir(err);
+        return;
     }
-}, 2000);
-
-setTimeout(()=>{
-    spinner.stop();
-    spinner.clear()
-    process.exit(1)
-},5000);
+    console.log(data)
+});
